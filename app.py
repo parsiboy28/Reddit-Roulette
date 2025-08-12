@@ -208,3 +208,8 @@ def refresh_access_token():
     token_request = requests.post("https://www.reddit.com/api/v1/access_token", data=post_data, auth=client_auth, headers=headers)
 
     session["access_token"] = token_request.json()["access_token"]
+
+
+port = os.environ.get("PORT", 5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=port)
