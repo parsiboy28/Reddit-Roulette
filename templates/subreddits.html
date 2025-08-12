@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <subreddits_body>
+        <div id="subreddits_hook"><h1>Pick Your <span style="color: red">Poison!</span></h1></div>
+        
+        <div id="subreddits_container">
+            {% for letter, subreddit in subreddits %}
+                {% for key in subreddit %}
+                
+                    <form action="/search" method="post" class="subreddit_form {{ letter }}">
+                        <div>
+                            <input name="subreddit" value="{{ key }}" hidden>
+                            <pre><h2>{{ key }}</h2></pre>
+                            <pre><p>{{ subreddit[key] }}</p></pre>
+                        </div>
+                    </form>
+                {% endfor %}
+            {% endfor %}
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function(){
+                    document.querySelector(".subreddit_form.a").addEventListener("click", function(){
+                        document.querySelector(".subreddit_form.a").submit();
+                    })
+
+                    document.querySelector(".subreddit_form.b").addEventListener("click", function(){
+                        document.querySelector(".subreddit_form.b").submit();
+                    })
+
+                    document.querySelector(".subreddit_form.c").addEventListener("click", function(){
+                        document.querySelector(".subreddit_form.c").submit();
+                    })
+
+                    document.querySelector(".subreddit_form.d").addEventListener("click", function(){
+                        document.querySelector(".subreddit_form.d").submit();
+                    })
+                    
+                })
+            </script>
+        </div>
+
+        
+    </subreddits_body>
+    
+    
+
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/style.css" rel="stylesheet">
+    <title>Reddit Roulette</title>
+</head>
+<body>
+    <main_div id="index_body">
+            <div id="hook">
+                <h1 id="hook_title">Reddit <span style="color: red">Roulette</span></h1>
+                <p id="hook_caption">One click. One subreddit. Total <span style="color: red;">R</span><span style="color: orange;">a</span><span style="color: yellow;">n</span><span style="color: green;">d</span><span style="color: lightblue;">o</span><span style="color: blue;">m</span><span style="color: rgb(119, 0, 255);">n</span><span style="color: rgb(255, 0, 234);">e</span><span style="color: red;">s</span><span style="color: orange;">s</span><span style="color: yellow;">!</span></p>
+            </div>
+
+            <form action="/subreddits" method="post" id="search_form">
+                <div id="search_container">
+                    <input id="search_input" type="text" placeholder="Subreddit..." autofocus autocomplete="off" name="subreddit">
+
+                    <button id="search_button" type="submit" name="search_button">Search</button>
+                </div>
+                
+                <div><p style="color: red;">{{ error }}</p></div>
+
+                <div id="flip_flop_container">
+                    <input class="radio_input" type="radio" name="content_type" value="image" id="image_button">
+                    <label class="radio_label" for="image_button">Image</label>
+                    <input class="radio_input" type="radio" name="content_type" value="video" id="video_button">
+                    <label class="radio_label" for="video_button">Video</label>
+                </div>
+            </form>
+        </main_div>
+</body>
+</html>
+
+    
+    
+
+

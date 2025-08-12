@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<video_body>
+    <div class="video_container">
+        <video autoplay controls>
+            <source type="video/mp4" id="video_src">
+        </video>
+        <h2 id="title"></h2>
+    
+        <div class="button_container">
+            <button id="previous_button"><i class="fas fa-arrow-left"></i></button>
+            <button id="pause_button"><i class="fas fa-pause" id="pause_button_inside"></i></button>
+            <button id="next_button"><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+    <h1 id="limit_reached">Video Limit Reached!</h1>
+</video_body>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let i = parseInt(sessionStorage.getItem("index") || "0");
+
+            let videos_json = {{ videos | tojson | safe }};
+            let video = videos_json[i];
+
+            document.querySelector("#previous_button").addEventListener("click", function(){
+                    sessionStorage.setItem("index", i - 1);
+                    location.reload()
+                })
+                document.querySelector("#next_button").addEventListener("click", function(){
+                    sessionStorage.setItem("index", i + 1);
+                    location.reload()
+                })
+
+            if (i == 0){
+                document.querySelector("#previous_button").disabled = true;
+                document.querySelector("#previous_button").style.opacity = 0.5;
+            }
+            if (i >= videos_json.length){
+                document.querySelector("#next_button").disabled = true;
+                document.querySelector("#next_button").style.opacity = 0.5;
+                document.querySelector("#pause_button").style.opacity = 0.5;
+            }
+
+            if (i < videos_json.length){
+                document.getElementById("video_src").setAttribute("src", video["url"]);
+                document.getElementById("title").innerHTML = video["title"];
+                document.getElementById("limit_reached").hidden = true;
+
+                let timeout = setTimeout(function(){
+                    sessionStorage.setItem("index", i + 1);
+                    location.reload();
+                }, parseInt(video["duration"] * 1000));
+
+                let isPaused = false;
+
+                document.querySelector("#pause_button").addEventListener("click", () => {
+                    const icon = document.querySelector("#pause_button_inside");
+                    if (!isPaused) {
+                        clearTimeout(timeout);
+                        icon.className = "fas fa-play";
+                        isPaused = true;
+                    } else {
+                        // Restart auto-advance timeout
+                        timeout = setTimeout(function(){
+                            sessionStorage.setItem("index", i + 1);
+                            location.reload();
+                        }, parseInt(video["duration"] * 1000));
+                        icon.className = "fas fa-pause";
+                        isPaused = false;
+                    }
+                });
+
+            }
+            else{
+                document.getElementById("title").hidden = true;
+                document.querySelector("video").hidden = true;
+                document.getElementById("limit_reached").hidden = false;
+            }
+            
+            
+
+            
+        });
+    </script>
+
+{% endblock %}
