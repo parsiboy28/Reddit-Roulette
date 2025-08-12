@@ -5,12 +5,15 @@ from uuid import uuid4
 import urllib
 from time import time
 import json
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-CLIENT_ID = "y4PLPKLFcS_KI_-ubeMYgg"
-CLIENT_SECRET = "qg2c9KVxmsogaY-JxWr2E0mD5fZtNg"
-REDIRECT_URI = "http://127.0.0.1:5000/callback"
-USER_AGENT = "Web's API/0.1 by mr_bloebi"
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+REDIRECT_URI = os.environ.get("REDIRECT_URI")
+USER_AGENT = os.environ.get("USER_AGENT")
 
 app = Flask(__name__)
 
