@@ -161,7 +161,7 @@ def make_authorization_url():
     }
 
     url = "https://www.reddit.com/api/v1/authorize?" + urllib.parse.urlencode(params)
-    return url
+    return url, CLIENT_ID
 
 #makes the access token
 @app.route("/callback")
