@@ -4,7 +4,6 @@ import requests
 from uuid import uuid4
 import urllib
 from time import time
-import json
 from dotenv import load_dotenv
 import os
 
